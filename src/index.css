@@ -1,0 +1,98 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap');
+
+@theme {
+  /* ── TT-Farben ── */
+  --color-table-900: #14532d;
+  --color-table-800: #166534;
+  --color-table-700: #15803d;
+  --color-table-600: #16a34a;
+  --color-table-500: #22c55e;
+  --color-table-400: #4ade80;
+  --color-table-100: #dcfce7;
+  --color-table-50:  #f0fdf4;
+
+  --color-ball-500: #f97316;
+  --color-ball-400: #fb923c;
+  --color-ball-100: #ffedd5;
+
+  --color-ink:     #0f172a;
+  --color-sub:     #475569;
+  --color-muted:   #94a3b8;
+  --color-border:  #e2e8f0;
+  --color-surface: #ffffff;
+  --color-bg:      #f0fdf4;
+
+  /* ── Typografie ── */
+  --font-sans:    'Geist', system-ui, -apple-system, sans-serif;
+  --font-display: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono:    ui-monospace, 'SF Mono', monospace;
+
+  /* ── Radien ── */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   20px;
+  --radius-full: 9999px;
+
+  /* ── Schatten ── */
+  --shadow-card:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-sheet: 0 -4px 24px rgba(0,0,0,.10);
+  --shadow-modal: 0 16px 48px rgba(0,0,0,.16);
+}
+
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+  background-image:
+    radial-gradient(ellipse 70% 50% at -5% 0%, rgba(22,163,74,.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 105% 100%, rgba(249,115,22,.04) 0%, transparent 55%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input, select, textarea { font: inherit; color: inherit; }
+::selection { background: var(--color-table-600); color: #fff; }
+
+/* ── TT-Netz-Trennlinie ── */
+.tt-net {
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--color-table-600) 10%,
+    var(--color-table-500) 50%,
+    var(--color-table-600) 90%,
+    transparent 100%
+  );
+  border-radius: 2px;
+  position: relative;
+}
+.tt-net::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: 50%; transform: translateX(-50%);
+  width: 8px; height: 7px;
+  background: var(--color-muted);
+  border-radius: 2px;
+}
+
+/* ── Safe-area für PWA ── */
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+/* ── Animationen ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-in { animation: fadeUp 220ms ease-out forwards; }
