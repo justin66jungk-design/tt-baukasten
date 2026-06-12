@@ -101,7 +101,7 @@ export function AuswertenTab() {
 
 function MetricChip({ value, label, color }) {
   return (
-    <div className="flex items-center gap-2 bg-white rounded-[var(--radius-md)] px-3.5 py-2 shadow-[var(--shadow-card)]">
+    <div className="flex items-center gap-2 card-glass rounded-[var(--radius-md)] px-3.5 py-2 shadow-[var(--shadow-card)]">
       <span className="text-[20px] font-semibold tabular-nums leading-none" style={{ color }}>{value}</span>
       <span className="text-[11px] text-[var(--color-muted)] font-medium leading-tight">{label}</span>
     </div>

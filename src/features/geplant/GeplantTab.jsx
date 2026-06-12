@@ -102,7 +102,7 @@ function DraftCard({ draft, past, onDelete }) {
   }
 
   return (
-    <div className={`bg-white rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-4 ${past ? 'opacity-60' : ''}`}>
+    <div className={`card-glass rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-4 ${past ? 'opacity-60' : ''}`}>
       <div className="flex items-start justify-between gap-2 mb-3">
         <div>
           <p className="text-[14px] font-semibold text-[var(--color-ink)]">{fmtDate(draft.date)}</p>

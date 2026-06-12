@@ -23,7 +23,7 @@ export function MatchStats({ matches }) {
   return (
     <div className="space-y-3">
       {/* Bilanz */}
-      <div className="bg-white rounded-[var(--radius-lg)] border border-[var(--color-border)] shadow-[var(--shadow-card)] p-4">
+      <div className="card-glass rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-4">
         <h3 className="text-[13px] font-bold text-[var(--color-ink)] mb-3">Bilanz</h3>
         <div className="flex items-center gap-4">
           <ScorePill value={wins}   label="Siege"          color="#10B981" />
@@ -44,7 +44,7 @@ export function MatchStats({ matches }) {
       {recent.length >= 2 && <TrendCard matches={recent} />}
 
       {/* Match-Liste */}
-      <div className="bg-white rounded-[var(--radius-lg)] border border-[var(--color-border)] shadow-[var(--shadow-card)] p-4">
+      <div className="card-glass rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-4">
         <h3 className="text-[13px] font-bold text-[var(--color-ink)] mb-3">Letzte Matches</h3>
         <div className="space-y-2">
           {lastTen.map((m, idx) => <MatchRow key={idx} match={m} />)}
@@ -116,7 +116,7 @@ function TrendCard({ matches }) {
   ]
 
   return (
-    <div className="bg-white rounded-[var(--radius-lg)] border border-[var(--color-border)] shadow-[var(--shadow-card)] p-4">
+    <div className="card-glass rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-4">
       <h3 className="text-[13px] font-bold text-[var(--color-ink)] mb-3">Kennzahlen-Trend — letzte {matches.length} Matches</h3>
       <div className="space-y-3">
         {METRICS.map(m => {

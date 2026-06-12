@@ -220,7 +220,7 @@ export function EinstellungenTab() {
 
 function SettingsSection({ title, children }) {
   return (
-    <div className="bg-white rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-4">
+    <div className="card-glass rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-4">
       <h3 className="text-[13px] font-semibold text-[var(--color-ink)] mb-3">{title}</h3>
       {children}
     </div>

@@ -9,7 +9,7 @@ export function PlanenHero({ plan, settings, onDateClick }) {
   const isOver  = used > budget
 
   return (
-    <div className="bg-white rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] overflow-hidden">
+    <div className="card-glass rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] overflow-hidden">
 
       {/* Kopfzeile: Titel + Datums-Button */}
       <div className="flex items-center justify-between px-5 pt-4 pb-3">

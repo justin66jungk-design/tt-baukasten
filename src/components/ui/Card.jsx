@@ -1,8 +1,8 @@
-/* macOS-Gruppenpanel (wie Systemeinstellungen) */
+/* macOS-Gruppenpanel — Glasmaterial */
 export function Card({ children, className = '', ...props }) {
   return (
     <div
-      className={`bg-white rounded-[var(--radius-md)] shadow-[var(--shadow-card)] ${className}`}
+      className={`card-glass rounded-[var(--radius-md)] shadow-[var(--shadow-card)] ${className}`}
       {...props}
     >
       {children}

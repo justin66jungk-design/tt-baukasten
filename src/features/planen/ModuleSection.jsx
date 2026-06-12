@@ -17,7 +17,7 @@ export function ModuleSection({ mod, plan, settings, onAddClick, onInc, onDec, o
   const Icon    = MOD_ICON[mod]
 
   return (
-    <section className="bg-white rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] overflow-hidden mb-3">
+    <section className="card-glass rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] overflow-hidden mb-3">
 
       {/* Gruppenkopf — wie macOS Systemeinstellungen */}
       <div className="flex items-center gap-3 px-4 py-3">

@@ -22,9 +22,9 @@
   --color-sub:      rgba(60, 60, 67, .78);
   --color-muted:    rgba(60, 60, 67, .48);
   --color-border:   rgba(0, 0, 0, .09);
-  --color-surface:  #ffffff;
+  --color-surface:  rgba(255, 255, 255, .82);
   --color-surface-2: rgba(120, 120, 128, .08);
-  --color-bg:       #f5f5f7;
+  --color-bg:       rgba(242, 244, 248, .64);
   --color-header:   #1d1d1f;
 
   /* ── Typografie: SF Pro Systemstack ── */
@@ -61,15 +61,8 @@ body {
   -webkit-font-smoothing: antialiased;
   min-height: 100dvh;
   overflow-x: hidden;
-  background: #2a4f8f;
-}
 
-button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-input, select, textarea { font: inherit; color: inherit; }
-::selection { background: rgba(52, 199, 89, .3); }
-
-/* ── Tahoe-Wallpaper (fließende blaue Bänder, Approximation) ── */
-.wallpaper {
+  /* Tahoe-Wallpaper direkt auf dem Body — immer sichtbar als Blur-Substrat */
   background-color: #2a4f8f;
   background-image:
     radial-gradient(1200px 800px at 15% 8%,  rgba(125,168,240,.9) 0%, transparent 60%),
@@ -80,14 +73,21 @@ input, select, textarea { font: inherit; color: inherit; }
   background-attachment: fixed;
 }
 
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input, select, textarea { font: inherit; color: inherit; }
+::selection { background: rgba(52, 199, 89, .3); }
+
+/* .wallpaper ist jetzt direkt auf body — Klasse nur noch als optionaler Override */
+.wallpaper { /* identisch zu body-background, falls außerhalb gebraucht */ }
+
 /* ── Liquid-Glass-Materialien (Web-Approximation) ── */
 .glass-window {
-  background: rgba(244, 244, 248, .58);
-  backdrop-filter: blur(64px) saturate(180%);
-  -webkit-backdrop-filter: blur(64px) saturate(180%);
+  background: rgba(236, 238, 245, .72);
+  backdrop-filter: blur(56px) saturate(160%);
+  -webkit-backdrop-filter: blur(56px) saturate(160%);
 }
 .glass-pane {
-  background: rgba(251, 251, 253, .82);
+  background: rgba(248, 249, 252, .88);
 }
 .glass-dock {
   background: rgba(250, 250, 253, .78);
@@ -99,9 +99,16 @@ input, select, textarea { font: inherit; color: inherit; }
     0 8px 28px rgba(0,0,30,.22);
 }
 .glass-modal {
-  background: rgba(248, 248, 251, .92);
-  backdrop-filter: blur(48px) saturate(180%);
-  -webkit-backdrop-filter: blur(48px) saturate(180%);
+  background: rgba(245, 246, 250, .94);
+  backdrop-filter: blur(48px) saturate(170%);
+  -webkit-backdrop-filter: blur(48px) saturate(170%);
+}
+
+/* Cards erhalten leichten Blur damit die Farbe durch die Transparenz kommt */
+.card-glass {
+  background: rgba(255, 255, 255, .80);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
 }
 .hairline   { box-shadow: 0 0 0 0.5px var(--color-border); }
 .hairline-b { border-bottom: 0.5px solid var(--color-border); }

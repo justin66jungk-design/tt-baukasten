@@ -308,7 +308,7 @@ function LiveScreen({ state, dispatch }) {
       </div>
 
       {/* Scoreboard */}
-      <div className="bg-white rounded-[var(--radius-lg)] border border-[var(--color-border)] shadow-[var(--shadow-card)] p-5">
+      <div className="card-glass rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-5">
         <div className="flex items-center">
           <PlayerScore name={playerA.name} score={sA} isServer={server === 'A'} left />
           <span className="text-[var(--color-border)] text-3xl font-light px-3 flex-shrink-0">:</span>
@@ -322,7 +322,7 @@ function LiveScreen({ state, dispatch }) {
       </div>
 
       {/* Chips */}
-      <div className="bg-white rounded-[var(--radius-lg)] border border-[var(--color-border)] shadow-[var(--shadow-card)] p-4">
+      <div className="card-glass rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-4">
         <p className="text-[11px] font-bold text-[var(--color-sub)] uppercase tracking-wider mb-3">Rallye-Chip</p>
         <div className="grid grid-cols-3 gap-2">
           {CHIP_DEF.map(c => {
@@ -421,7 +421,7 @@ function PauseScreen({ state, dispatch }) {
 
   return (
     <div className="animate-in space-y-4 pb-6">
-      <div className="bg-white rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-6 text-center">
+      <div className="card-glass rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-6 text-center">
         <PingPong size={34} weight="duotone" className="text-[var(--color-table-600)] mx-auto mb-2" />
         <h2 className="text-[18px] font-bold text-[var(--color-ink)]">Satz {currentSetIdx + 1} beendet</h2>
         <p className="text-[15px] font-semibold text-[var(--color-sub)] mt-2">
@@ -457,7 +457,7 @@ function FinishScreen({ state, dispatch, onSave, saving, saved }) {
 
   return (
     <div className="animate-in space-y-4 pb-6">
-      <div className="bg-white rounded-[var(--radius-lg)] border border-[var(--color-border)] shadow-[var(--shadow-card)] p-6 text-center">
+      <div className="card-glass rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-6 text-center">
         <div className="text-4xl mb-3">🏆</div>
         <h2 className="text-[20px] font-bold text-[var(--color-ink)]">Match beendet</h2>
         <div className="flex items-center justify-center gap-5 mt-4">
@@ -513,7 +513,7 @@ function FinishScreen({ state, dispatch, onSave, saving, saved }) {
 
 function Card({ title, children }) {
   return (
-    <div className="bg-white rounded-[var(--radius-lg)] border border-[var(--color-border)] shadow-[var(--shadow-card)] p-4">
+    <div className="card-glass rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-4">
       <h3 className="text-[13px] font-bold text-[var(--color-ink)] mb-3">{title}</h3>
       {children}
     </div>
