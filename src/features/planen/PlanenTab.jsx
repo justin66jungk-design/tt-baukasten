@@ -118,7 +118,7 @@ export function PlanenTab() {
       <div className="flex gap-2 mb-3">
         <button
           onClick={() => { if (confirm('Plan leeren?')) reset() }}
-          className="text-[12px] font-semibold text-[var(--color-muted)] bg-white border border-[var(--color-border)] rounded-full px-3 py-1.5 hover:text-[var(--color-ink)] transition-colors active:opacity-70"
+          className="text-[12px] font-semibold text-[var(--color-sub)] bg-white shadow-[var(--shadow-card)] rounded-full px-4 py-1.5 hover:text-[var(--color-ink)] transition-colors active:opacity-70"
         >
           Leeren
         </button>
@@ -142,7 +142,7 @@ export function PlanenTab() {
 
       {/* Speichern */}
       <div className="pt-2 pb-6">
-        <Button onClick={saveTraining} disabled={saving} size="lg" className="w-full">
+        <Button onClick={saveTraining} disabled={saving} size="lg" className="w-full py-4 text-[16px] shadow-[0_4px_16px_rgba(22,163,74,.4)]">
           {saving ? 'Speichert…' : 'Training speichern'}
         </Button>
       </div>
