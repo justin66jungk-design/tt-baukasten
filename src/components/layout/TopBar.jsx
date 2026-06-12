@@ -9,7 +9,7 @@ export function TopBar() {
   }
 
   return (
-    <header className="bg-[var(--color-header)] px-4 pt-safe-top">
+    <header className="bg-[var(--color-header)] px-4">
       <div className="flex items-center justify-between h-14">
         {/* Brand */}
         <div className="flex items-center gap-2.5">
