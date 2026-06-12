@@ -1,7 +1,8 @@
+/* macOS-Gruppenpanel (wie Systemeinstellungen) */
 export function Card({ children, className = '', ...props }) {
   return (
     <div
-      className={`bg-white rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] border border-[var(--color-border)] ${className}`}
+      className={`bg-white rounded-[var(--radius-md)] shadow-[var(--shadow-card)] ${className}`}
       {...props}
     >
       {children}

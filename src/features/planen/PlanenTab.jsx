@@ -8,6 +8,7 @@ import { CatalogSheet } from './CatalogSheet'
 import { today } from '../../lib/planUtils'
 import { MODS } from '../../lib/constants'
 import { Button } from '../../components/ui/Button'
+import { Spinner } from '../../components/ui/Spinner'
 
 export function PlanenTab() {
   const { session } = useApp()
@@ -88,7 +89,7 @@ export function PlanenTab() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-16">
-        <div className="text-2xl animate-spin">🏓</div>
+        <Spinner />
       </div>
     )
   }
@@ -114,14 +115,11 @@ export function PlanenTab() {
         />
       </div>
 
-      {/* Aktions-Pill */}
+      {/* Aktionen */}
       <div className="flex gap-2 mb-3">
-        <button
-          onClick={() => { if (confirm('Plan leeren?')) reset() }}
-          className="text-[12px] font-semibold text-[var(--color-sub)] bg-white shadow-[var(--shadow-card)] rounded-full px-4 py-1.5 hover:text-[var(--color-ink)] transition-colors active:opacity-70"
-        >
+        <Button variant="secondary" size="sm" onClick={() => { if (confirm('Plan leeren?')) reset() }}>
           Leeren
-        </button>
+        </Button>
       </div>
 
       {/* Module */}
@@ -141,8 +139,8 @@ export function PlanenTab() {
       ))}
 
       {/* Speichern */}
-      <div className="pt-2 pb-6">
-        <Button onClick={saveTraining} disabled={saving} size="lg" className="w-full py-4 text-[16px] shadow-[0_4px_16px_rgba(22,163,74,.4)]">
+      <div className="pt-2 pb-6 flex lg:justify-end">
+        <Button onClick={saveTraining} disabled={saving} size="lg" className="w-full lg:w-auto">
           {saving ? 'Speichert…' : 'Training speichern'}
         </Button>
       </div>

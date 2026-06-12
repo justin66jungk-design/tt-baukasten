@@ -3,7 +3,8 @@ import { useApp } from '../../context/AppContext'
 import { supabase } from '../../lib/supabase'
 import { MODS } from '../../lib/constants'
 import { byId, fmtDate, today } from '../../lib/planUtils'
-import { Button } from '../../components/ui/Button'
+import { PushPin, X } from '@phosphor-icons/react'
+import { Spinner } from '../../components/ui/Spinner'
 
 export function GeplantTab() {
   const { session } = useApp()
@@ -40,23 +41,20 @@ export function GeplantTab() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-16">
-        <div className="text-2xl animate-spin">🏓</div>
+        <Spinner />
       </div>
     )
   }
 
   return (
     <div className="animate-in">
-      <div className="mb-4">
-        <h2 className="text-2xl font-bold tracking-tight text-[var(--color-ink)]">Geplant</h2>
-        <p className="text-sm text-[var(--color-muted)] mt-0.5">Vorgemerkte Trainingseinheiten</p>
-      </div>
+      <p className="text-[13px] text-[var(--color-muted)] mb-4">Vorgemerkte Trainingseinheiten</p>
 
       {drafts.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-12 text-center">
-          <div className="text-4xl mb-3">📌</div>
-          <p className="font-semibold text-[var(--color-ink)]">Noch nichts vorgemerkt</p>
-          <p className="text-sm text-[var(--color-muted)] mt-1 max-w-xs">
+        <div className="flex flex-col items-center justify-center py-14 text-center">
+          <PushPin size={30} weight="duotone" className="text-[var(--color-muted)] mb-3" />
+          <p className="text-[14px] font-semibold text-[var(--color-ink)]">Noch nichts vorgemerkt</p>
+          <p className="text-[12px] text-[var(--color-muted)] mt-1 max-w-xs">
             Erstelle einen Plan im Planen-Tab und speichere ihn als Vorlage.
           </p>
         </div>
@@ -104,17 +102,18 @@ function DraftCard({ draft, past, onDelete }) {
   }
 
   return (
-    <div className={`bg-white rounded-[var(--radius-lg)] border border-[var(--color-border)] shadow-[var(--shadow-card)] p-4 ${past ? 'opacity-60' : ''}`}>
+    <div className={`bg-white rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-4 ${past ? 'opacity-60' : ''}`}>
       <div className="flex items-start justify-between gap-2 mb-3">
         <div>
-          <p className="text-[15px] font-bold text-[var(--color-ink)]">{fmtDate(draft.date)}</p>
+          <p className="text-[14px] font-semibold text-[var(--color-ink)]">{fmtDate(draft.date)}</p>
           {past && <span className="text-[10px] text-[var(--color-muted)]">vergangen</span>}
         </div>
         <button
           onClick={onDelete}
-          className="text-[11px] text-[var(--color-muted)] hover:text-red-500 transition-colors p-1"
+          title="Löschen"
+          className="w-[22px] h-[22px] flex items-center justify-center rounded-full bg-black/[.06] text-[var(--color-muted)] hover:text-[#e0352b] hover:bg-[#e0352b]/10 transition-colors"
         >
-          ✕
+          <X size={11} weight="bold" />
         </button>
       </div>
 

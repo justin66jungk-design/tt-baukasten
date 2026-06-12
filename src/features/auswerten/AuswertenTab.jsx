@@ -4,6 +4,7 @@ import { supabase } from '../../lib/supabase'
 import { TrainingStats } from './TrainingStats'
 import { MatchStats } from './MatchStats'
 import { computeMilestones } from '../../lib/statsUtils'
+import { Spinner } from '../../components/ui/Spinner'
 
 const SUBTABS = [
   { id: 'training', label: 'Training' },
@@ -52,20 +53,16 @@ export function AuswertenTab() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-16">
-        <div className="text-2xl animate-spin">🏓</div>
+        <Spinner />
       </div>
     )
   }
 
   return (
     <div className="animate-in">
-      {/* Header */}
-      <div className="mb-4">
-        <h2 className="text-2xl font-bold tracking-tight text-[var(--color-ink)]">Auswerten</h2>
-        <p className="text-sm text-[var(--color-muted)] mt-0.5">
-          Trainingsanalyse für {settings.club}
-        </p>
-      </div>
+      <p className="text-[13px] text-[var(--color-muted)] mb-4">
+        Trainingsanalyse für {settings.club}
+      </p>
 
       {/* Kennzahl-Chips */}
       <div className="flex gap-2 mb-4 flex-wrap">
@@ -74,17 +71,17 @@ export function AuswertenTab() {
         <MetricChip value={matches.length}     label="Matches"         color="#A855F7"                />
       </div>
 
-      {/* Sub-Tab-Navigation */}
-      <div className="flex gap-1 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-[var(--radius-md)] p-1 mb-4">
+      {/* Segmented Control — macOS-Stil */}
+      <div className="flex gap-0.5 bg-black/[.06] rounded-[9px] p-[2px] mb-4 max-w-[320px]">
         {SUBTABS.map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={`
-              flex-1 py-2 text-[13px] font-semibold rounded-[var(--radius-sm)] transition-all duration-150
+              flex-1 h-[26px] text-[12.5px] font-medium rounded-[7px] transition-all duration-150
               ${activeTab === tab.id
-                ? 'bg-white text-[var(--color-ink)] shadow-[var(--shadow-card)]'
-                : 'text-[var(--color-muted)] hover:text-[var(--color-sub)]'
+                ? 'bg-white text-[var(--color-ink)] shadow-[0_0_0_0.5px_rgba(0,0,0,.08),0_1px_2.5px_rgba(0,0,0,.12)]'
+                : 'text-[var(--color-sub)] hover:text-[var(--color-ink)]'
               }
             `}
           >
@@ -104,8 +101,8 @@ export function AuswertenTab() {
 
 function MetricChip({ value, label, color }) {
   return (
-    <div className="flex items-center gap-2 bg-white border border-[var(--color-border)] rounded-[var(--radius-md)] px-3 py-2 shadow-[var(--shadow-card)]">
-      <span className="text-[22px] font-bold tabular-nums leading-none" style={{ color }}>{value}</span>
+    <div className="flex items-center gap-2 bg-white rounded-[var(--radius-md)] px-3.5 py-2 shadow-[var(--shadow-card)]">
+      <span className="text-[20px] font-semibold tabular-nums leading-none" style={{ color }}>{value}</span>
       <span className="text-[11px] text-[var(--color-muted)] font-medium leading-tight">{label}</span>
     </div>
   )

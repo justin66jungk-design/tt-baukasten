@@ -1,4 +1,5 @@
 import { useState, useReducer, useEffect } from 'react'
+import { PingPong } from '@phosphor-icons/react'
 import { useApp } from '../../context/AppContext'
 import { supabase } from '../../lib/supabase'
 import { isSetOver } from '../../lib/statsUtils'
@@ -386,7 +387,7 @@ function PlayerScore({ name, score, isServer, left }) {
   return (
     <div className={`flex-1 flex flex-col ${left ? 'items-start' : 'items-end'}`}>
       <div className={`flex items-center gap-1 ${left ? '' : 'flex-row-reverse'}`}>
-        {isServer && <span className="text-[12px]">🏓</span>}
+        {isServer && <PingPong size={13} weight="fill" className="text-[var(--color-table-600)] flex-shrink-0" />}
         <span className="text-[12px] font-semibold text-[var(--color-sub)] truncate max-w-[100px]">{name}</span>
       </div>
       <span className="text-[60px] font-black tabular-nums leading-none text-[var(--color-ink)]">{score}</span>
@@ -420,8 +421,8 @@ function PauseScreen({ state, dispatch }) {
 
   return (
     <div className="animate-in space-y-4 pb-6">
-      <div className="bg-white rounded-[var(--radius-lg)] border border-[var(--color-border)] shadow-[var(--shadow-card)] p-6 text-center">
-        <div className="text-[36px] mb-2">🏓</div>
+      <div className="bg-white rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-6 text-center">
+        <PingPong size={34} weight="duotone" className="text-[var(--color-table-600)] mx-auto mb-2" />
         <h2 className="text-[18px] font-bold text-[var(--color-ink)]">Satz {currentSetIdx + 1} beendet</h2>
         <p className="text-[15px] font-semibold text-[var(--color-sub)] mt-2">
           {playerA.name} {a} : {b} {playerB.name}

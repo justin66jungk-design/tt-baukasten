@@ -3,6 +3,8 @@ import { useApp } from '../../context/AppContext'
 import { supabase } from '../../lib/supabase'
 import { MODS, DEFAULT_BUDGETS, DEFAULT_WEIGHTS } from '../../lib/constants'
 import { Button } from '../../components/ui/Button'
+import { Spinner } from '../../components/ui/Spinner'
+import { Plus, X, Minus } from '@phosphor-icons/react'
 
 const WEIGHT_LABELS = {
   gap:         'Lücke (nicht trainiert)',
@@ -88,38 +90,41 @@ export function EinstellungenTab() {
   const budgetSum = Object.values(budgets).reduce((s, v) => s + (v || 0), 0)
 
   if (loading) {
-    return <div className="flex items-center justify-center py-16"><div className="text-2xl animate-spin">🏓</div></div>
+    return <div className="flex items-center justify-center py-16"><Spinner /></div>
   }
 
   return (
     <div className="animate-in space-y-4 pb-6">
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight text-[var(--color-ink)]">Einstellungen</h2>
-      </div>
-
       {/* Spielerprofile */}
       <SettingsSection title="Spielerprofile">
         <p className="text-[12px] text-[var(--color-muted)] mb-3">Max. 10 Profile. Match-History wird mit dem Profil verknüpft.</p>
         <div className="space-y-2">
           {players.map(p => (
-            <div key={p.id} className="flex items-center gap-3 p-3 rounded-[var(--radius-md)] bg-[var(--color-bg)] border border-[var(--color-border)]">
+            <div key={p.id} className="flex items-center gap-3 px-3 py-2.5 rounded-[var(--radius-md)] bg-[var(--color-bg)] shadow-[0_0_0_0.5px_rgba(0,0,0,.07)]">
               <div className="flex-1 min-w-0">
-                <p className="text-[13px] font-semibold text-[var(--color-ink)]">{p.name}</p>
+                <p className="text-[13px] font-medium text-[var(--color-ink)]">{p.name}</p>
                 <p className="text-[11px] text-[var(--color-muted)]">
                   {[p.hand, p.birthyear, p.style].filter(Boolean).join(' · ')}
                 </p>
               </div>
-              <button onClick={() => { setEditPlayer(p); setShowPlayerForm(true) }} className="text-[var(--color-muted)] hover:text-[var(--color-ink)] px-2 py-1 text-[12px]">Bearbeiten</button>
-              <button onClick={() => handleDeletePlayer(p.id)} className="text-[var(--color-muted)] hover:text-red-500 px-2 py-1 text-[12px]">✕</button>
+              <Button variant="secondary" size="sm" onClick={() => { setEditPlayer(p); setShowPlayerForm(true) }}>Bearbeiten</Button>
+              <button
+                onClick={() => handleDeletePlayer(p.id)}
+                title="Löschen"
+                className="w-[22px] h-[22px] flex items-center justify-center rounded-full bg-black/[.06] text-[var(--color-muted)] hover:text-[#e0352b] hover:bg-[#e0352b]/10 transition-colors"
+              >
+                <X size={11} weight="bold" />
+              </button>
             </div>
           ))}
         </div>
         {players.length < 10 && (
           <button
             onClick={() => { setEditPlayer(null); setShowPlayerForm(true) }}
-            className="mt-2 w-full py-2.5 rounded-[var(--radius-md)] border-2 border-dashed border-[var(--color-border)] text-[12px] font-semibold text-[var(--color-muted)] hover:border-[var(--color-table-400)] hover:text-[var(--color-table-600)] transition-colors"
+            className="mt-2 flex items-center gap-1.5 text-[13px] font-medium text-[var(--color-table-700)] hover:opacity-70 transition-opacity py-1"
           >
-            + Spieler anlegen
+            <Plus size={13} weight="bold" />
+            Spieler anlegen
           </button>
         )}
       </SettingsSection>
@@ -132,7 +137,7 @@ export function EinstellungenTab() {
           value={club}
           onChange={e => setClub(e.target.value)}
           placeholder="z. B. TV Bonn-Geislar"
-          className="w-full px-3 py-2.5 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg)] text-[13px] text-[var(--color-ink)] focus:outline-none focus:ring-2 focus:ring-[var(--color-table-500)] transition"
+          className={fieldCls}
         />
         <p className="text-[11px] text-[var(--color-muted)] mt-1">Erscheint im Header und im Ausdruck.</p>
       </SettingsSection>
@@ -147,15 +152,15 @@ export function EinstellungenTab() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setBudgets(b => ({ ...b, [mod]: Math.max(0, (b[mod] || 0) - 5) }))}
-                  className="w-7 h-7 rounded-full bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-sub)] flex items-center justify-center font-bold hover:bg-[var(--color-border)] transition-colors"
-                >−</button>
+                  className="w-[24px] h-[24px] rounded-full bg-white shadow-[inset_0_1px_0_rgba(255,255,255,.8),0_0_0_0.5px_rgba(0,0,0,.14),0_1px_1.5px_rgba(0,0,0,.08)] text-[var(--color-sub)] flex items-center justify-center hover:bg-[#f8f8fa] active:bg-[#ececef] transition-colors"
+                ><Minus size={11} weight="bold" /></button>
                 <span className="text-[13px] font-bold w-14 text-center tabular-nums text-[var(--color-ink)]">
                   {budgets[mod] || 0} min
                 </span>
                 <button
                   onClick={() => setBudgets(b => ({ ...b, [mod]: (b[mod] || 0) + 5 }))}
-                  className="w-7 h-7 rounded-full bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-sub)] flex items-center justify-center font-bold hover:bg-[var(--color-border)] transition-colors"
-                >+</button>
+                  className="w-[24px] h-[24px] rounded-full bg-white shadow-[inset_0_1px_0_rgba(255,255,255,.8),0_0_0_0.5px_rgba(0,0,0,.14),0_1px_1.5px_rgba(0,0,0,.08)] text-[var(--color-sub)] flex items-center justify-center hover:bg-[#f8f8fa] active:bg-[#ececef] transition-colors"
+                ><Plus size={11} weight="bold" /></button>
               </div>
             </div>
           ))}
@@ -188,9 +193,11 @@ export function EinstellungenTab() {
       </SettingsSection>
 
       {/* Speichern */}
-      <Button onClick={handleSave} disabled={saving} size="lg" className="w-full">
-        {saving ? 'Speichert…' : 'Einstellungen speichern'}
-      </Button>
+      <div className="flex lg:justify-end">
+        <Button onClick={handleSave} disabled={saving} size="lg" className="w-full lg:w-auto">
+          {saving ? 'Speichert…' : 'Einstellungen speichern'}
+        </Button>
+      </div>
 
       {/* Spieler-Formular */}
       {showPlayerForm && (
@@ -213,8 +220,8 @@ export function EinstellungenTab() {
 
 function SettingsSection({ title, children }) {
   return (
-    <div className="bg-white rounded-[var(--radius-lg)] border border-[var(--color-border)] shadow-[var(--shadow-card)] p-4">
-      <h3 className="text-[13px] font-bold text-[var(--color-ink)] mb-3">{title}</h3>
+    <div className="bg-white rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-4">
+      <h3 className="text-[13px] font-semibold text-[var(--color-ink)] mb-3">{title}</h3>
       {children}
     </div>
   )
@@ -233,11 +240,14 @@ function PlayerSheet({ player, onSave, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-40 flex flex-col" onClick={onClose}>
-      <div className="flex-1 bg-black/40" />
-      <div className="bg-white rounded-t-[20px] shadow-[var(--shadow-sheet)] p-5 animate-in" onClick={e => e.stopPropagation()}>
-        <div className="flex justify-center mb-3"><div className="w-10 h-1 rounded-full bg-[var(--color-border)]" /></div>
-        <h2 className="text-[15px] font-bold text-[var(--color-ink)] mb-4">{player ? 'Spieler bearbeiten' : 'Spieler anlegen'}</h2>
+    <div className="fixed inset-0 z-40 flex items-end lg:items-center justify-center" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/30" />
+      <div
+        className="glass-modal relative w-full rounded-t-[18px] lg:max-w-[440px] lg:rounded-[16px] shadow-[var(--shadow-modal)] p-5 animate-modal"
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="flex justify-center mb-3 lg:hidden"><div className="w-9 h-[5px] rounded-full bg-black/15" /></div>
+        <h2 className="text-[15px] font-semibold text-[var(--color-ink)] mb-4">{player ? 'Spieler bearbeiten' : 'Spieler anlegen'}</h2>
         <form onSubmit={handleSubmit} className="space-y-3">
           <Field label="Name" required>
             <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Name…" required className={fieldCls} />
@@ -263,7 +273,7 @@ function PlayerSheet({ player, onSave, onClose }) {
   )
 }
 
-const fieldCls = 'w-full px-3 py-2.5 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg)] text-[13px] text-[var(--color-ink)] focus:outline-none focus:ring-2 focus:ring-[var(--color-table-500)] transition'
+const fieldCls = 'w-full h-[34px] px-3 rounded-[8px] bg-white shadow-[0_0_0_0.5px_rgba(0,0,0,.16),inset_0_1px_2px_rgba(0,0,0,.04)] text-[13px] text-[var(--color-ink)] placeholder:text-[var(--color-muted)] focus:outline-none focus:ring-[3px] focus:ring-[var(--color-table-500)]/40 transition'
 
 function Field({ label, required, children }) {
   return (

@@ -1,48 +1,51 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap');
 
 @theme {
-  /* ── TT-Farben ── */
-  --color-table-900: #14532d;
-  --color-table-800: #166534;
-  --color-table-700: #15803d;
-  --color-table-600: #16a34a;
-  --color-table-500: #22c55e;
-  --color-table-400: #4ade80;
-  --color-table-200: #bbf7d0;
-  --color-table-100: #dcfce7;
-  --color-table-50:  #f0fdf4;
+  /* ── Akzent: macOS systemGreen (TT-Identität) ── */
+  --color-table-900: #0d652a;
+  --color-table-800: #137a35;
+  --color-table-700: #1c9440;
+  --color-table-600: #28b34e;
+  --color-table-500: #34c759;
+  --color-table-400: #5dd67b;
+  --color-table-200: #b9edc6;
+  --color-table-100: #dbf6e2;
+  --color-table-50:  #effbf2;
 
-  --color-ball-500: #f97316;
-  --color-ball-400: #fb923c;
-  --color-ball-100: #ffedd5;
+  /* macOS systemOrange */
+  --color-ball-500: #ff9500;
+  --color-ball-400: #ffaa33;
+  --color-ball-100: #ffefd6;
 
-  --color-ink:      #0f172a;
-  --color-sub:      #475569;
-  --color-muted:    #94a3b8;
-  --color-border:   #e2e8f0;
+  /* ── macOS Label-Hierarchie (Light) ── */
+  --color-ink:      #1d1d1f;
+  --color-sub:      rgba(60, 60, 67, .78);
+  --color-muted:    rgba(60, 60, 67, .48);
+  --color-border:   rgba(0, 0, 0, .09);
   --color-surface:  #ffffff;
-  --color-surface-2:#f8fafc;
-  --color-bg:       #f1f5f9;
-  --color-header:   #0f172a;
+  --color-surface-2: rgba(120, 120, 128, .08);
+  --color-bg:       #f5f5f7;
+  --color-header:   #1d1d1f;
 
-  /* ── Typografie ── */
-  --font-sans:    'Geist', system-ui, -apple-system, sans-serif;
-  --font-display: 'Geist', system-ui, -apple-system, sans-serif;
-  --font-mono:    ui-monospace, 'SF Mono', monospace;
+  /* ── Typografie: SF Pro Systemstack ── */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display',
+               'Helvetica Neue', 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono: ui-monospace, 'SF Mono', 'Menlo', monospace;
 
-  /* ── Radien ── */
-  --radius-sm:   8px;
-  --radius-md:   12px;
-  --radius-lg:   16px;
-  --radius-xl:   20px;
+  /* ── Radien (konzentrisch, Tahoe) ── */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   18px;
   --radius-full: 9999px;
 
-  /* ── Schatten ── */
-  --shadow-card:     0 2px 8px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.05);
-  --shadow-elevated: 0 8px 32px rgba(0,0,0,.14), 0 2px 8px rgba(0,0,0,.08);
-  --shadow-sheet:    0 -4px 24px rgba(0,0,0,.14);
-  --shadow-modal:    0 16px 48px rgba(0,0,0,.20);
+  /* ── Schatten: Hairline-basiert ── */
+  --shadow-card:     0 0 0 0.5px rgba(0,0,0,.09), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-elevated: 0 0 0 0.5px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.10);
+  --shadow-sheet:    0 0 0 0.5px rgba(0,0,0,.08), 0 -8px 32px rgba(0,0,0,.12);
+  --shadow-modal:    0 0 0 0.5px rgba(0,0,0,.10), 0 24px 64px rgba(0,0,0,.28);
+  --shadow-window:   0 0 0 0.5px rgba(0,0,0,.18), 0 32px 90px rgba(0,0,40,.45);
 }
 
 /* ── Base ── */
@@ -52,39 +55,77 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   font-family: var(--font-sans);
-  background: var(--color-bg);
   color: var(--color-ink);
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 13px;
+  line-height: 1.45;
   -webkit-font-smoothing: antialiased;
   min-height: 100dvh;
   overflow-x: hidden;
+  background: #2a4f8f;
 }
 
 button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
 input, select, textarea { font: inherit; color: inherit; }
-::selection { background: var(--color-table-600); color: #fff; }
+::selection { background: rgba(52, 199, 89, .3); }
 
-/* ── TT-Netz-Trennlinie ── */
-.tt-net {
-  height: 3px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    var(--color-table-600) 10%,
-    var(--color-table-500) 50%,
-    var(--color-table-600) 90%,
-    transparent 100%
-  );
-  border-radius: 2px;
-  position: relative;
+/* ── Tahoe-Wallpaper (fließende blaue Bänder, Approximation) ── */
+.wallpaper {
+  background-color: #2a4f8f;
+  background-image:
+    radial-gradient(1200px 800px at 15% 8%,  rgba(125,168,240,.9) 0%, transparent 60%),
+    radial-gradient(1000px 700px at 88% 18%, rgba(150,130,240,.75) 0%, transparent 55%),
+    radial-gradient(950px 900px at 72% 95%,  rgba(70,200,228,.7)  0%, transparent 55%),
+    radial-gradient(1100px 700px at 20% 88%, rgba(72,102,205,.85) 0%, transparent 60%),
+    linear-gradient(160deg, #35559f 0%, #5e80d2 45%, #2e3f7a 100%);
+  background-attachment: fixed;
 }
-.tt-net::before {
-  content: '';
-  position: absolute;
-  top: -2px; left: 50%; transform: translateX(-50%);
-  width: 8px; height: 7px;
-  background: var(--color-muted);
-  border-radius: 2px;
+
+/* ── Liquid-Glass-Materialien (Web-Approximation) ── */
+.glass-window {
+  background: rgba(244, 244, 248, .58);
+  backdrop-filter: blur(64px) saturate(180%);
+  -webkit-backdrop-filter: blur(64px) saturate(180%);
+}
+.glass-pane {
+  background: rgba(251, 251, 253, .82);
+}
+.glass-dock {
+  background: rgba(250, 250, 253, .78);
+  backdrop-filter: blur(36px) saturate(180%);
+  -webkit-backdrop-filter: blur(36px) saturate(180%);
+  box-shadow:
+    0 0 0 0.5px rgba(0,0,0,.10),
+    inset 0 1px 0 rgba(255,255,255,.65),
+    0 8px 28px rgba(0,0,30,.22);
+}
+.glass-modal {
+  background: rgba(248, 248, 251, .92);
+  backdrop-filter: blur(48px) saturate(180%);
+  -webkit-backdrop-filter: blur(48px) saturate(180%);
+}
+.hairline   { box-shadow: 0 0 0 0.5px var(--color-border); }
+.hairline-b { border-bottom: 0.5px solid var(--color-border); }
+.hairline-r { border-right: 0.5px solid var(--color-border); }
+
+/* ── macOS-Scrollbalken ── */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.22);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background-color: rgba(0,0,0,.38); background-clip: content-box; }
+
+/* ── Aktivitätsanzeige ── */
+@keyframes spin360 { to { transform: rotate(360deg); } }
+.spinner {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(0,0,0,.12);
+  border-top-color: rgba(0,0,0,.5);
+  animation: spin360 .8s linear infinite;
 }
 
 /* ── Safe-area für PWA ── */
@@ -95,4 +136,10 @@ input, select, textarea { font: inherit; color: inherit; }
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.animate-in { animation: fadeUp 220ms ease-out forwards; }
+.animate-in { animation: fadeUp 200ms ease-out forwards; }
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(.97) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-modal { animation: modalIn 180ms cubic-bezier(.2,.9,.3,1) forwards; }

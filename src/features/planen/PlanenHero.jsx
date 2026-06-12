@@ -1,3 +1,4 @@
+import { CalendarBlank, CaretDown } from '@phosphor-icons/react'
 import { MODS, DEFAULT_BUDGETS } from '../../lib/constants'
 import { modTotal, totalUsed, totalBudget, fmtDateLong } from '../../lib/planUtils'
 
@@ -8,59 +9,47 @@ export function PlanenHero({ plan, settings, onDateClick }) {
   const isOver  = used > budget
 
   return (
-    <div className="rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-elevated)] mb-4">
+    <div className="bg-white rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] overflow-hidden">
 
-      {/* ── Green hero area — full bleed, like Strava's activity banner ── */}
-      <div
-        className="px-5 pt-5 pb-6 relative"
-        style={{
-          background: 'linear-gradient(135deg, #14532d 0%, #16a34a 60%, #15803d 100%)',
-        }}
-      >
-        {/* Subtle TT table texture — two white lines like service boxes */}
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none" aria-hidden>
-          <div className="absolute inset-x-0 top-1/2 h-px bg-white" />
-          <div className="absolute inset-y-0 left-1/2 w-px bg-white" />
-        </div>
-
-        {/* Date */}
+      {/* Kopfzeile: Titel + Datums-Button */}
+      <div className="flex items-center justify-between px-5 pt-4 pb-3">
+        <p className="text-[13px] font-semibold text-[var(--color-ink)]">Trainingszeit</p>
         <button
           onClick={onDateClick}
-          className="flex items-center gap-2.5 mb-6 group active:opacity-70 transition-opacity"
+          className="flex items-center gap-1.5 h-[26px] pl-2.5 pr-2 rounded-full bg-white text-[12px] font-medium text-[var(--color-ink)]
+            shadow-[inset_0_1px_0_rgba(255,255,255,.8),0_0_0_0.5px_rgba(0,0,0,.14),0_1px_2px_rgba(0,0,0,.08)]
+            hover:bg-[#f8f8fa] active:bg-[#ececef] transition-colors"
         >
-          <div className="w-9 h-9 rounded-[var(--radius-md)] bg-white/15 flex items-center justify-center flex-shrink-0 border border-white/20">
-            <CalIcon />
-          </div>
-          <div className="flex-1 text-left">
-            <p className="text-[19px] font-bold text-white leading-none tracking-tight">
-              {fmtDateLong(plan.date)}
-            </p>
-            <p className="text-[11px] text-white/60 mt-0.5">Datum ändern</p>
-          </div>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"
-            strokeLinecap="round" strokeLinejoin="round" className="opacity-60">
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
+          <CalendarBlank size={13} className="text-[var(--color-table-600)]" />
+          {fmtDateLong(plan.date)}
+          <CaretDown size={10} className="text-[var(--color-muted)]" />
         </button>
+      </div>
 
-        {/* Hero metric */}
-        <div className="mb-5">
-          <div className={`font-black leading-none tabular-nums tracking-[-3px] text-white ${isOver ? 'opacity-100' : ''}`}
-            style={{ fontSize: 'clamp(60px, 20vw, 88px)' }}>
+      {/* Kennzahl */}
+      <div className="px-5 pb-4">
+        <div className="flex items-baseline gap-2">
+          <span className={`text-[44px] font-semibold tabular-nums leading-none tracking-[-0.02em] ${isOver ? 'text-[#e0352b]' : 'text-[var(--color-ink)]'}`}>
             {used}
-            <span className="text-[clamp(28px,8vw,38px)] font-semibold tracking-normal text-white/70 ml-2">min</span>
-          </div>
-          <p className="text-[13px] text-white/60 mt-2 font-medium">
-            {isOver ? 'Budget überschritten! ' : ''}Ziel: {budget} min · {settings?.club || 'TV Bonn-Geislar'}
-          </p>
+          </span>
+          <span className="text-[17px] text-[var(--color-muted)] font-medium">/ {budget} min</span>
+          {isOver && (
+            <span className="text-[11px] font-semibold text-[#e0352b] bg-[#e0352b]/10 px-2 py-0.5 rounded-full">
+              Budget überschritten
+            </span>
+          )}
         </div>
+        <p className="text-[12px] text-[var(--color-muted)] mt-1">{settings?.club || 'TV Bonn-Geislar'}</p>
+      </div>
 
-        {/* Segment bar on dark green bg */}
+      {/* Segmentbalken */}
+      <div className="px-5 pb-4">
         <SegmentBar plan={plan} budgets={budgets} />
       </div>
 
-      {/* ── White info panel below ── */}
-      <div className="bg-white px-4 py-4">
+      {/* Legende */}
+      <div className="hairline-b mx-5" style={{ borderTopWidth: 0 }} />
+      <div className="px-5 py-3.5">
         <ModuleLegend plan={plan} budgets={budgets} />
       </div>
     </div>
@@ -81,12 +70,12 @@ function SegmentBar({ plan, budgets }) {
   })
 
   return (
-    <div className="flex h-3 rounded-full overflow-hidden gap-0.5" style={{ background: 'rgba(0,0,0,.25)' }}>
+    <div className="flex h-[7px] rounded-full overflow-hidden gap-px bg-[var(--color-surface-2)]">
       {segments.map(({ mod, m, segW, fillW, overW }) => (
-        <div key={mod} className="relative flex overflow-hidden rounded-sm" style={{ width: `${segW}%` }}>
-          <div className="h-full rounded-sm" style={{ width: `${fillW}%`, background: m.color }} />
-          {overW > 0 && <div className="h-full bg-red-400" style={{ width: `${overW}%` }} />}
-          <div className="flex-1 h-full" style={{ background: 'rgba(255,255,255,.12)' }} />
+        <div key={mod} className="relative flex overflow-hidden first:rounded-l-full last:rounded-r-full" style={{ width: `${segW}%` }}>
+          <div className="h-full" style={{ width: `${fillW}%`, background: m.color }} />
+          {overW > 0 && <div className="h-full bg-[#e0352b]" style={{ width: `${overW}%` }} />}
+          <div className="flex-1 h-full" />
         </div>
       ))}
     </div>
@@ -95,31 +84,21 @@ function SegmentBar({ plan, budgets }) {
 
 function ModuleLegend({ plan, budgets }) {
   return (
-    <div className="grid grid-cols-2 gap-x-6 gap-y-2.5">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-2">
       {Object.entries(MODS).map(([mod, m]) => {
         const used = modTotal(plan.sel, mod)
         const b    = budgets[mod] || 0
         const over = used > b
         return (
           <div key={mod} className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: m.color }} />
-            <span className="text-[12px] text-[var(--color-sub)] flex-1 truncate font-medium">{m.name}</span>
-            <span className={`text-[12px] font-bold tabular-nums flex-shrink-0 ${over ? 'text-red-500' : 'text-[var(--color-ink)]'}`}>
+            <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: m.color }} />
+            <span className="text-[12px] text-[var(--color-sub)] flex-1 truncate">{m.name}</span>
+            <span className={`text-[12px] font-semibold tabular-nums flex-shrink-0 ${over ? 'text-[#e0352b]' : 'text-[var(--color-ink)]'}`}>
               {used}<span className="text-[var(--color-muted)] font-normal">/{b}</span>
             </span>
           </div>
         )
       })}
     </div>
-  )
-}
-
-function CalIcon() {
-  return (
-    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth="1.8"
-      strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="4" width="18" height="18" rx="2" />
-      <path d="M16 2v4M8 2v4M3 10h18" />
-    </svg>
   )
 }

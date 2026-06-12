@@ -14,7 +14,7 @@ export default defineConfig({
         name: 'TT-Baukasten',
         short_name: 'TT-Baukasten',
         description: 'Trainingsplanung für Tischtennis',
-        theme_color: '#16a34a',
+        theme_color: '#34c759',
         background_color: '#f0fdf4',
         display: 'standalone',
         orientation: 'portrait',
