@@ -1,5 +1,5 @@
 import { MODS, MOD_ICONS, DEFAULT_BUDGETS } from '../../lib/constants'
-import { modTotal, byId, phaseWarning } from '../../lib/planUtils'
+import { modTotal, phaseWarning } from '../../lib/planUtils'
 import { ExerciseCard } from './ExerciseCard'
 
 export function ModuleSection({ mod, plan, settings, onAddClick, onInc, onDec, onUp, onDown, onRemove }) {
@@ -9,47 +9,63 @@ export function ModuleSection({ mod, plan, settings, onAddClick, onInc, onDec, o
   const used    = modTotal(plan.sel, mod)
   const over    = used > b
   const items   = plan.sel[mod] || []
+  const fillPct = b > 0 ? Math.min(100, (used / b) * 100) : 0
+  const warn    = mod === 'tt' ? phaseWarning(plan.sel) : null
 
-  const warn = mod === 'tt' ? phaseWarning(plan.sel) : null
+  // White icon on colored badge
+  const iconHtml = MOD_ICONS[mod]
+    .replace(/stroke="currentColor"/g, 'stroke="white"')
+    .replace(/fill="currentColor"/g, 'fill="white"')
+    .replace('width="16"', 'width="18"')
+    .replace('height="16"', 'height="18"')
 
   return (
-    <section className="rounded-[var(--radius-lg)] overflow-hidden border border-[var(--color-border)] bg-white mb-3">
-      {/* Modul-Header */}
-      <div
-        className="flex items-center justify-between px-4 py-3 border-b border-[var(--color-border)]"
-        style={{ borderLeftWidth: 3, borderLeftColor: m.color, borderLeftStyle: 'solid' }}
-      >
-        <div className="flex items-center gap-2">
-          <span
-            className="flex items-center justify-center w-6 h-6"
-            style={{ color: m.color }}
-            dangerouslySetInnerHTML={{ __html: MOD_ICONS[mod] }}
-          />
-          <span className="text-[14px] font-bold text-[var(--color-ink)]">{m.name}</span>
+    <section className="rounded-[var(--radius-lg)] overflow-hidden bg-white shadow-[var(--shadow-card)] mb-3">
+
+      {/* Module header */}
+      <div className="flex items-center gap-3 px-4 py-4">
+        {/* Colored icon badge */}
+        <div
+          className="w-10 h-10 rounded-[var(--radius-md)] flex items-center justify-center flex-shrink-0"
+          style={{ background: m.color }}
+          dangerouslySetInnerHTML={{ __html: iconHtml }}
+        />
+
+        {/* Name */}
+        <div className="flex-1 min-w-0">
+          <p className="text-[15px] font-bold text-[var(--color-ink)] leading-tight">{m.name}</p>
         </div>
-        <span className={`text-[12px] font-bold tabular-nums px-2 py-0.5 rounded-full ${over ? 'text-red-600 bg-red-50' : 'text-[var(--color-sub)] bg-[var(--color-bg)]'}`}>
-          {used} / {b} min
-        </span>
+
+        {/* Time badge */}
+        <div className={`flex items-baseline gap-0.5 flex-shrink-0 ${over ? 'text-red-600' : 'text-[var(--color-ink)]'}`}>
+          <span className="text-[20px] font-black tabular-nums leading-none">{used}</span>
+          <span className="text-[12px] text-[var(--color-muted)] font-medium">/{b}′</span>
+        </div>
       </div>
 
-      {/* Inhalt */}
+      {/* Per-module fill bar */}
+      <div className="h-0.5 bg-[var(--color-border)]">
+        <div
+          className="h-full transition-all duration-500"
+          style={{ width: `${fillPct}%`, background: over ? '#ef4444' : m.color }}
+        />
+      </div>
+
+      {/* Content */}
       <div className="p-3 space-y-2">
-        {/* Phasen-Warnung (nur TT) */}
         {warn && (
           <div className="flex gap-2 p-2.5 rounded-[var(--radius-sm)] bg-amber-50 border border-amber-200">
-            <span className="text-amber-500 flex-shrink-0">⚠</span>
+            <span className="text-amber-500 flex-shrink-0 text-[15px]">⚠</span>
             <p className="text-[12px] text-amber-800">{warn}</p>
           </div>
         )}
 
-        {/* Leere Liste */}
         {items.length === 0 && (
-          <p className="text-[12px] text-[var(--color-muted)] text-center py-2">
+          <p className="text-[12px] text-[var(--color-muted)] text-center py-3">
             Noch nichts ausgewählt.
           </p>
         )}
 
-        {/* Übungskarten */}
         {items.map((item, idx) => (
           <ExerciseCard
             key={`${item.id}-${idx}`}
@@ -57,20 +73,21 @@ export function ModuleSection({ mod, plan, settings, onAddClick, onInc, onDec, o
             mod={mod}
             idx={idx}
             lastIdx={items.length - 1}
-            onInc={()    => onInc(mod, idx)}
-            onDec={()    => onDec(mod, idx)}
-            onUp={()     => onUp(mod, idx)}
-            onDown={()   => onDown(mod, idx)}
-            onRemove={()  => onRemove(mod, idx)}
+            onInc={() => onInc(mod, idx)}
+            onDec={() => onDec(mod, idx)}
+            onUp={() => onUp(mod, idx)}
+            onDown={() => onDown(mod, idx)}
+            onRemove={() => onRemove(mod, idx)}
           />
         ))}
 
-        {/* Hinzufügen-Button */}
+        {/* Add button — module-color-tinted dashed border */}
         <button
           onClick={() => onAddClick(mod)}
-          className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-[var(--radius-md)] border-2 border-dashed border-[var(--color-border)] text-[12px] font-semibold text-[var(--color-muted)] hover:border-[var(--color-table-400)] hover:text-[var(--color-table-600)] transition-colors"
+          className="w-full flex items-center justify-center gap-1.5 py-3 rounded-[var(--radius-md)] border-2 border-dashed text-[13px] font-semibold transition-all active:opacity-70"
+          style={{ borderColor: `${m.color}50`, color: m.color }}
         >
-          <span className="text-base leading-none">+</span>
+          <span className="text-[16px] leading-none font-bold">+</span>
           Übung hinzufügen
         </button>
       </div>

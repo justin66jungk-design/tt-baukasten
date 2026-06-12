@@ -164,10 +164,6 @@ export function PlanenTab() {
           {toast}
         </div>
       )}
-
-      <p className="text-center text-[10px] text-[var(--color-muted)] pb-2">
-        © {new Date().getFullYear()} Justin Jungk · TT-Baukasten · Alle Rechte vorbehalten
-      </p>
     </div>
   )
 }

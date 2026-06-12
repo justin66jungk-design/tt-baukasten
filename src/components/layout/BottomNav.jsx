@@ -3,9 +3,9 @@ import { useApp } from '../../context/AppContext'
 const TABS = [
   { id: 'planen',        label: 'Planen',    icon: PlanIcon    },
   { id: 'geplant',       label: 'Geplant',   icon: CalIcon     },
-  { id: 'auswerten',     label: 'Stats',     icon: ChartIcon   },
+  { id: 'auswerten',     label: 'Auswerten', icon: ChartIcon   },
   { id: 'match',         label: 'Match',     icon: MatchIcon   },
-  { id: 'einstellungen', label: 'Settings',  icon: SettingsIcon},
+  { id: 'einstellungen', label: 'Einst.',    icon: SettingsIcon},
 ]
 
 export function BottomNav() {
