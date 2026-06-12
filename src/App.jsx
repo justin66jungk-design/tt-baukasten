@@ -35,8 +35,10 @@ function AppShell() {
   return (
     <div className="flex flex-col min-h-dvh">
       <TopBar />
-      <main className="flex-1 pb-24 px-4 pt-2 max-w-2xl mx-auto w-full">
-        {TABS[activeTab]}
+      <main className="flex-1 w-full">
+        <div className="max-w-xl mx-auto px-4 pt-2 pb-24">
+          {TABS[activeTab]}
+        </div>
       </main>
       <BottomNav />
     </div>
