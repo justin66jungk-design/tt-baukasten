@@ -1,33 +1,41 @@
 import { useApp } from '../../context/AppContext'
 
 const TABS = [
-  { id: 'planen',        label: 'Planen',      icon: PlanIcon },
-  { id: 'geplant',       label: 'Geplant',     icon: CalIcon },
-  { id: 'auswerten',     label: 'Auswerten',   icon: ChartIcon },
-  { id: 'match',         label: 'Match',       icon: MatchIcon },
-  { id: 'einstellungen', label: 'Einstellung', icon: SettingsIcon },
+  { id: 'planen',        label: 'Planen',    icon: PlanIcon    },
+  { id: 'geplant',       label: 'Geplant',   icon: CalIcon     },
+  { id: 'auswerten',     label: 'Stats',     icon: ChartIcon   },
+  { id: 'match',         label: 'Match',     icon: MatchIcon   },
+  { id: 'einstellungen', label: 'Settings',  icon: SettingsIcon},
 ]
 
 export function BottomNav() {
   const { activeTab, setActiveTab } = useApp()
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 safe-bottom bg-white/90 backdrop-blur-xl border-t border-[var(--color-border)] flex">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 safe-bottom bg-[var(--color-surface)] border-t border-[var(--color-border)] shadow-[0_-1px_0_rgba(0,0,0,.04),0_-4px_16px_rgba(0,0,0,.06)] flex items-end px-1 pb-1 pt-1.5">
       {TABS.map(({ id, label, icon: Icon }) => {
         const active = activeTab === id
         return (
           <button
             key={id}
             onClick={() => setActiveTab(id)}
-            className={`
-              flex-1 flex flex-col items-center justify-center gap-1 py-2.5
-              text-[10.5px] font-semibold tracking-wide
-              transition-colors duration-150 -webkit-tap-highlight-color-transparent
-              ${active ? 'text-[var(--color-table-600)]' : 'text-[var(--color-muted)]'}
-            `}
+            className="flex-1 flex flex-col items-center gap-0.5 transition-opacity active:opacity-70"
           >
-            <Icon active={active} />
-            <span>{label}</span>
+            <div className={`
+              flex items-center justify-center rounded-[10px] transition-all duration-200
+              ${active
+                ? 'bg-[var(--color-table-600)] w-12 h-7 shadow-[0_2px_8px_rgba(22,163,74,.35)]'
+                : 'w-12 h-7'
+              }
+            `}>
+              <Icon active={active} />
+            </div>
+            <span className={`
+              text-[10px] font-semibold tracking-wide transition-colors duration-150 leading-none mb-0.5
+              ${active ? 'text-[var(--color-table-700)]' : 'text-[var(--color-muted)]'}
+            `}>
+              {label}
+            </span>
           </button>
         )
       })}
@@ -35,45 +43,57 @@ export function BottomNav() {
   )
 }
 
-/* ── Icons (inline SVG, kein extra Package nötig) ── */
+/* ── Icons ── */
+const iconProps = (active) => ({
+  width: 18,
+  height: 18,
+  fill: 'none',
+  viewBox: '0 0 24 24',
+  stroke: active ? 'white' : 'currentColor',
+  strokeWidth: '2',
+  strokeLinecap: 'round',
+  strokeLinejoin: 'round',
+})
+
 function PlanIcon({ active }) {
   return (
-    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke={active ? 'var(--color-table-600)' : 'currentColor'} strokeWidth="1.8">
+    <svg {...iconProps(active)}>
       <rect x="3" y="4" width="18" height="18" rx="3" />
       <path d="M16 2v4M8 2v4M3 10h18" />
+      <path d="M8 14h4M8 18h8" />
     </svg>
   )
 }
 function CalIcon({ active }) {
   return (
-    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke={active ? 'var(--color-table-600)' : 'currentColor'} strokeWidth="1.8">
+    <svg {...iconProps(active)}>
       <rect x="3" y="4" width="18" height="18" rx="3" />
       <path d="M3 10h18M8 2v4M16 2v4" />
-      <circle cx="9" cy="15" r="1" fill="currentColor" />
-      <circle cx="15" cy="15" r="1" fill="currentColor" />
+      <path d="M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h.01" />
     </svg>
   )
 }
 function ChartIcon({ active }) {
   return (
-    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke={active ? 'var(--color-table-600)' : 'currentColor'} strokeWidth="1.8">
-      <path d="M3 20h18M7 20V10m5 10V6m5 14v-4" />
+    <svg {...iconProps(active)}>
+      <path d="M18 20V10M12 20V4M6 20v-6" />
     </svg>
   )
 }
 function MatchIcon({ active }) {
   return (
-    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke={active ? 'var(--color-table-600)' : 'currentColor'} strokeWidth="1.8">
-      <ellipse cx="12" cy="12" rx="10" ry="10" />
-      <path d="M5 7c3 2 3 6 0 8M19 7c-3 2-3 6 0 8" />
+    <svg {...iconProps(active)}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M6.3 6.3c3.5 3.5 3.5 8 0 11.4M17.7 6.3c-3.5 3.5-3.5 8 0 11.4" />
+      <path d="M2 12h20" />
     </svg>
   )
 }
 function SettingsIcon({ active }) {
   return (
-    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke={active ? 'var(--color-table-600)' : 'currentColor'} strokeWidth="1.8">
+    <svg {...iconProps(active)}>
       <circle cx="12" cy="12" r="3" />
-      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+      <path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8l2.8-2.8M17 7l2.8-2.8" />
     </svg>
   )
 }

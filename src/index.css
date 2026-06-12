@@ -9,6 +9,7 @@
   --color-table-600: #16a34a;
   --color-table-500: #22c55e;
   --color-table-400: #4ade80;
+  --color-table-200: #bbf7d0;
   --color-table-100: #dcfce7;
   --color-table-50:  #f0fdf4;
 
@@ -16,12 +17,14 @@
   --color-ball-400: #fb923c;
   --color-ball-100: #ffedd5;
 
-  --color-ink:     #0f172a;
-  --color-sub:     #475569;
-  --color-muted:   #94a3b8;
-  --color-border:  #e2e8f0;
-  --color-surface: #ffffff;
-  --color-bg:      #f0fdf4;
+  --color-ink:      #0f172a;
+  --color-sub:      #475569;
+  --color-muted:    #94a3b8;
+  --color-border:   #e2e8f0;
+  --color-surface:  #ffffff;
+  --color-surface-2:#f8fafc;
+  --color-bg:       #f1f5f9;
+  --color-header:   #0f172a;
 
   /* ── Typografie ── */
   --font-sans:    'Geist', system-ui, -apple-system, sans-serif;
@@ -36,9 +39,10 @@
   --radius-full: 9999px;
 
   /* ── Schatten ── */
-  --shadow-card:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
-  --shadow-sheet: 0 -4px 24px rgba(0,0,0,.10);
-  --shadow-modal: 0 16px 48px rgba(0,0,0,.16);
+  --shadow-card:     0 1px 3px rgba(0,0,0,.07), 0 0 0 1px rgba(0,0,0,.04);
+  --shadow-elevated: 0 8px 24px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.06);
+  --shadow-sheet:    0 -4px 24px rgba(0,0,0,.14);
+  --shadow-modal:    0 16px 48px rgba(0,0,0,.20);
 }
 
 /* ── Base ── */
@@ -54,10 +58,6 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   min-height: 100dvh;
-  background-image:
-    radial-gradient(ellipse 70% 50% at -5% 0%, rgba(22,163,74,.06) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 105% 100%, rgba(249,115,22,.04) 0%, transparent 55%);
-  background-attachment: fixed;
   overflow-x: hidden;
 }
 
